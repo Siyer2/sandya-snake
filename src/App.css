@@ -1,8 +1,8 @@
 /* src/App.css */
 .game-board {
   display: grid;
-  width: 100vw;
-  height: 100vh;
+  width: 90vw;
+  height: 50vh;
   max-width: 100%;
   max-height: 100%;
   margin: 0 auto;
@@ -21,4 +21,47 @@
   width: 100%;
   height: 100%;
   object-fit: cover; /* This ensures the image covers the entire cell without stretching */
+}
+
+.controls {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal-buttons {
+  display: flex;
+}
+
+.controls button {
+  font-size: 24px; /* Large font size for easy tapping */
+  width: 60px; /* Adjust as needed */
+  height: 60px; /* Adjust as needed */
+  background-color: #f0f0f0; /* Light background */
+  border: none;
+  border-radius: 30px; /* Round shape */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 5px;
+}
+
+
+/* Additional styling for individual buttons for better spacing and layout */
+.controls button:nth-child(1) {
+  /* additional styling for up button */
+}
+
+.controls button:nth-child(2), .controls button:nth-child(3) {
+  /* additional styling for left and right buttons */
+}
+
+.controls button:nth-child(4) {
+  /* additional styling for down button */
 }

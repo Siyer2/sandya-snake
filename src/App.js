@@ -121,17 +121,28 @@ function App() {
   }, []);
 
   return (
-    <div className="game-board" id="game-board">
-      {Array.from({ length: gridSize }, (_, i) =>
-        Array.from({ length: gridSize }, (_, j) => (
-          <div key={`${i}-${j}`} className="grid-cell">
-            {snake.some(segment => segment.x === i && segment.y === j) && (
-              <img src="/sandya-snake.png" alt="Snake" className="food" />
-            )}
-            {food.x === i && food.y === j && (hariUncleFace === true ? <img src="/hari-food.png" alt="food" className="food" /> : <img src="/priya-food.png" alt="food" className="food" />)}
-          </div>
-        ))
-      )}
+    <div>
+      <div className="game-board" id="game-board">
+        {Array.from({ length: gridSize }, (_, i) =>
+          Array.from({ length: gridSize }, (_, j) => (
+            <div key={`${i}-${j}`} className="grid-cell">
+              {snake.some(segment => segment.x === i && segment.y === j) && (
+                <img src="/sandya-snake.png" alt="Snake" className="food" />
+              )}
+              {food.x === i && food.y === j && (hariUncleFace === true ? <img src="/hari-food.png" alt="food" className="food" /> : <img src="/priya-food.png" alt="food" className="food" />)}
+            </div>
+          ))
+        )}
+      </div>
+
+      <div className="controls">
+        <button className="up-button" onClick={() => setDirection({ x: -1, y: 0 })}>&uarr;</button>
+        <div className="horizontal-buttons">
+          <button className="left-button" onClick={() => setDirection({ x: 0, y: -1 })}>&larr;</button>
+          <button className="right-button" onClick={() => setDirection({ x: 0, y: 1 })}>&rarr;</button>
+        </div>
+        <button className="down-button" onClick={() => setDirection({ x: 1, y: 0 })}>&darr;</button>
+      </div>
     </div>
   );
 }
