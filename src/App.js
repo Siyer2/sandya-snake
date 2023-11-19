@@ -38,6 +38,8 @@ function App() {
         setScore(prevScore => prevScore + 1);
         // Change face
         setHariUncleFace(!hariUncleFace);
+        // Play song
+        playAudio();
       } else {
         newSnake = [newHead, ...prevSnake.slice(0, -1)];
       }
