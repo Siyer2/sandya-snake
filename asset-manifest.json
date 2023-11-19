@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sandya-snake/static/css/main.08c3f28d.css",
-    "main.js": "/sandya-snake/static/js/main.81aaf6cf.js",
+    "main.js": "/sandya-snake/static/js/main.979b6890.js",
     "static/js/787.c0585f69.chunk.js": "/sandya-snake/static/js/787.c0585f69.chunk.js",
     "index.html": "/sandya-snake/index.html",
     "main.08c3f28d.css.map": "/sandya-snake/static/css/main.08c3f28d.css.map",
-    "main.81aaf6cf.js.map": "/sandya-snake/static/js/main.81aaf6cf.js.map",
+    "main.979b6890.js.map": "/sandya-snake/static/js/main.979b6890.js.map",
     "787.c0585f69.chunk.js.map": "/sandya-snake/static/js/787.c0585f69.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.08c3f28d.css",
-    "static/js/main.81aaf6cf.js"
+    "static/js/main.979b6890.js"
   ]
 }
