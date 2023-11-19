@@ -127,9 +127,9 @@ function App() {
           Array.from({ length: gridSize }, (_, j) => (
             <div key={`${i}-${j}`} className="grid-cell">
               {snake.some(segment => segment.x === i && segment.y === j) && (
-                <img src="/sandya-snake.png" alt="Snake" className="food" />
+                <img src="https://siyer2.github.io/sandya-snake/sandya-snake.png" alt="Snake" className="food" />
               )}
-              {food.x === i && food.y === j && (hariUncleFace === true ? <img src="/hari-food.png" alt="food" className="food" /> : <img src="/priya-food.png" alt="food" className="food" />)}
+              {food.x === i && food.y === j && (hariUncleFace === true ? <img src="https://siyer2.github.io/sandya-snake/hari-food.png" alt="food" className="food" /> : <img src="https://siyer2.github.io/sandya-snake/priya-food.png" alt="food" className="food" />)}
             </div>
           ))
         )}
