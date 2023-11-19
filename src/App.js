@@ -7,10 +7,13 @@ const initialFood = { x: 5, y: 5 };
 const gridSize = 10; // Reduced grid size
 
 function App() {
+  const [controlsHit, setControlsHit] = useState(0);
   const [hariUncleFace, setHariUncleFace] = useState(true);
   const [snake, setSnake] = useState(initialSnake);
   const [food, setFood] = useState(initialFood);
   const [lastKeyPress, setLastKeyPress] = useState('ArrowDown');
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [score, setScore] = useState(0);
 
   const initialDirection = { x: 1, y: 0 }; // Moving right initially
   const [direction, setDirection] = useState(initialDirection);
@@ -31,21 +34,36 @@ function App() {
         });
         // Grow the snake
         newSnake = [newHead, ...prevSnake];
+        // Update score
+        setScore(prevScore => prevScore + 1);
         // Change face
         setHariUncleFace(!hariUncleFace);
       } else {
         newSnake = [newHead, ...prevSnake.slice(0, -1)];
       }
 
+      // Check for collision immediately after updating the snake's position
+      if (newSnake.slice(1).some(segment => segment.x === newHead.x && segment.y === newHead.y)) {
+        setIsGameOver(true); // Stop the game if there's a collision
+      }
+
       return newSnake;
     });
   };
 
+  const playAudio = () => {
+    if (hariUncleFace) {
+      let audio = new Audio('https://siyer2.github.io/sandya-snake/appa.mp3');
+      audio.play();
+    } else {
+      let audio = new Audio('https://siyer2.github.io/sandya-snake/amma.mp3');
+      audio.play();
+    }
+  }
+
   const checkCollision = () => {
-    const [head] = snake;
-    const hitWall = head.x >= gridSize || head.y >= gridSize || head.x < 0 || head.y < 0;
-    const hitBody = snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y);
-    return hitWall || hitBody;
+    const [head, ...body] = snake;
+    return body.some(segment => segment.x === head.x && segment.y === head.y);
   };
 
   const updateGridSize = () => {
@@ -56,6 +74,14 @@ function App() {
     gameBoard.style.gridTemplateColumns = `repeat(${gridSize}, ${cellSize}px)`;
     gameBoard.style.gridTemplateRows = `repeat(${gridSize}, ${cellSize}px)`;
   };
+
+  const controlHit = () => {
+    if (controlsHit === 0) {
+      playAudio();
+    }
+
+    setControlsHit(controlsHit + 1);
+  }
 
   useEffect(() => {
     const handleKeyPress = (e) => {
@@ -93,20 +119,20 @@ function App() {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [direction]);
+  }, [direction, isGameOver]);
 
   useEffect(() => {
     const gameLoop = setInterval(() => {
       moveSnake();
       if (checkCollision()) {
         clearInterval(gameLoop);
-        // Handle game over scenario here
-        console.log("Game Over");
+        setIsGameOver(true);  // Set the game over state
       }
     }, 200);
 
     return () => clearInterval(gameLoop);
   }, [snake, direction]);
+
 
 
   useEffect(() => {
@@ -136,13 +162,23 @@ function App() {
       </div>
 
       <div className="controls">
-        <button className="up-button" onClick={() => setDirection({ x: -1, y: 0 })}>&uarr;</button>
+        <button className="up-button" onClick={() => { controlHit(); setDirection({ x: -1, y: 0 }) }}>&uarr;</button>
         <div className="horizontal-buttons">
-          <button className="left-button" onClick={() => setDirection({ x: 0, y: -1 })}>&larr;</button>
-          <button className="right-button" onClick={() => setDirection({ x: 0, y: 1 })}>&rarr;</button>
+          <button className="left-button" onClick={() => { controlHit(); setDirection({ x: 0, y: -1 }) }}>&larr;</button>
+          <button className="right-button" onClick={() => { controlHit(); setDirection({ x: 0, y: 1 }) }}>&rarr;</button>
         </div>
-        <button className="down-button" onClick={() => setDirection({ x: 1, y: 0 })}>&darr;</button>
+        <button className="down-button" onClick={() => { controlHit(); setDirection({ x: 1, y: 0 }) }}>&darr;</button>
       </div>
+
+      {isGameOver && (
+        <div className="game-over-modal">
+          <div className="game-over-content">
+            <h2>Game Over</h2>
+            <p>Your Score: {score / 2}</p>
+            <button onClick={() => { window.location.reload() }}>Play Again</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
